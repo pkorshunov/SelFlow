@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np 
 import matplotlib.pyplot as plt
-from warp import tf_warp
+from .warp import tf_warp
 
 def mvn(img):
     # minus mean color and divided by standard variance

@@ -1,8 +1,8 @@
 import tensorflow as tf
 from tensorflow.contrib import slim
-from data_augmentation import flow_resize
-from utils import lrelu
-from warp import tf_warp
+from .data_augmentation import flow_resize
+from .utils import lrelu
+from .warp import tf_warp
 
 def feature_extractor(x, train=True, trainable=True, reuse=None, regularizer=None, name='feature_extractor'):
     with tf.variable_scope(name, reuse=reuse, regularizer=regularizer):
@@ -140,8 +140,8 @@ def pyramid_processing_three_frame(batch_img, x0_feature, x1_feature, x2_feature
     return flow_fw, flow_bw
 
 
-def pyramid_processing(batch_img0, batch_img1, batch_img2, train=True, trainable=True, reuse=None, regularizer=None, is_scale=True):
-    x0_feature = feature_extractor(batch_img0, train=train, trainable=trainable, regularizer=regularizer, name='feature_extractor')
+def pyramid_processing(batch_img0, batch_img1, batch_img2, train=True, trainable=True, reuse=tf.AUTO_REUSE, regularizer=None, is_scale=True):
+    x0_feature = feature_extractor(batch_img0, train=train, trainable=trainable, reuse=reuse, regularizer=regularizer, name='feature_extractor')
     x1_feature = feature_extractor(batch_img1, train=train, trainable=trainable, reuse=True, regularizer=regularizer, name='feature_extractor')
     x2_feature = feature_extractor(batch_img2, train=train, trainable=trainable, reuse=True, regularizer=regularizer, name='feature_extractor')
     
